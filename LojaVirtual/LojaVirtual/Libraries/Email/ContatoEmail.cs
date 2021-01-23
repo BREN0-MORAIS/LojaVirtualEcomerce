@@ -10,6 +10,7 @@ namespace LojaVirtual.Libraries.Email
 {
     public static class ContatoEmail
     {
+        //TODO - Verificar por que E-mail não esta sendo Enviado
         public static void EnviarContatoPorEmail(Contato contato)
         {
             //tem que pesquisar qual é o servidor e a porta que vai utilizar para enviar o email 
@@ -18,10 +19,10 @@ namespace LojaVirtual.Libraries.Email
             //porta: 587
 
           
-            SmtpClient smtp = new SmtpClient("smtp-relay.gmail.com", 587);//SMTP-> Servidor que vai enviar a menssagem
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);//SMTP-> Servidor que vai enviar a menssagem
 
             smtp.UseDefaultCredentials = false; //desabilita as credenciais padrão do sistema pos iremos utilizar o nosso próprio;
-            smtp.Credentials = new NetworkCredential("brenofrancisco63@gmail.com", "BRENOFRANCISCOMORAIS"); //credencial de rede são dois parametros Usuário e Senha
+            smtp.Credentials = new NetworkCredential("brenofranciscomoais@gmail.com", ""); //credencial de rede são dois parametros Usuário e Senha
 
             //habilitando conexão segura de criptografia
             smtp.EnableSsl = true;
@@ -30,7 +31,7 @@ namespace LojaVirtual.Libraries.Email
             MailMessage messagem = new MailMessage();
 
             //responsável por envia a menssagem
-            messagem.From = new MailAddress("brenofrancisco63@gmail.com");
+            messagem.From = new MailAddress("brenofranciscomoais@gmail.com");
 
             //para quem vai a menssagem, para quem vai a menssagem podemos colocar mais de um email por ser uma coleção
             messagem.To.Add("brenofrancisco63@gmail.com");
@@ -51,6 +52,7 @@ namespace LojaVirtual.Libraries.Email
             messagem.IsBodyHtml = true;
             //conteudo do email
             messagem.Body = corpoHTML;
+
 
             //envaindo pela conexão SMTP a menssagem 
             smtp.Send(messagem);
