@@ -1,0 +1,30 @@
+
+/***********************************************Cria um Model de Contato***********************************************/
+
+    public class Contato
+    {
+
+        public string Nome { get; set; }
+        public string Email { get; set; }
+        public string Texto { get; set; }
+    }
+
+/***********************************************Pegando os Dados Pelo Formulário***********************************************/
+
+   public IActionResult ContatoAcao() {
+
+            ||Instanciando a classe contato|||
+            Contato contato = new Contato();
+
+            |Pega os dados elo Formulário|
+
+            contato.Nome = HttpContext.Request.Form["nome"];
+            contato.Texto = HttpContext.Request.Form["texto"];
+            contato.Email = HttpContext.Request.Form["email"];
+        
+
+           return new ContentResult(){Content = string.Format("nome:{0} <br> Email: {1} <br> texto:{2}",contato.Nome,contato.Email,contato.Texto),ContentType = "text/html" };
+      
+        }
+
+/***********************************************Cria classe de Configuração de Email***********************************************/

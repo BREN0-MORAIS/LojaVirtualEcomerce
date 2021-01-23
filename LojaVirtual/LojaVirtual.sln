@@ -3,7 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaVirtual", "LojaVirtual\LojaVirtual.csproj", "{4EA7E689-B53D-44D4-B0E1-E312FCE92AA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LojaVirtual", "LojaVirtual\LojaVirtual.csproj", "{4EA7E689-B53D-44D4-B0E1-E312FCE92AA7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentação", "Documentação", "{F131C0FC-F180-46EA-8651-F9AA172E4B3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurar Email", "Configurar Email", "{5E0B66A4-CE70-4836-9FF2-63D552D291EF}"
+	ProjectSection(SolutionItems) = preProject
+		Configuração.txt = Configuração.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +25,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5E0B66A4-CE70-4836-9FF2-63D552D291EF} = {F131C0FC-F180-46EA-8651-F9AA172E4B3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7E1AFE4-7790-43DF-AECE-26DA4A012174}
