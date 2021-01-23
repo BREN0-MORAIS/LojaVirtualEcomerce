@@ -1,4 +1,4 @@
-﻿
+﻿@model LojaVirtual.Models.NewsLetterEmail
 <main role="main">
 
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -16,7 +16,8 @@
                         <h1>Example headline.</h1>
                         <p>
                             Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicu
+
                         </p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                     </div>
@@ -155,3 +156,39 @@
         </div> <!-- row.// -->
     </div>
 </main>
+
+@{
+/*
+Razor - Motor Template do ASP .NET
+Html Helper - Interface que Proporciona Gerar Código de HTML por meio do C#, isso ajuda na manipulação de Informação
+
+*/
+
+//Html.BeginForm("Action", "Controlador", Método de Envio)
+ }
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+<div class="container">
+    @*<form class="col-12 m-auto" role="form" method="post" action="/Home/ContatoAcao">*@
+        <div class="form-group m-auto">
+            <label for="nome">Insira seu E-mail para Receber Noticias de Produto</label>
+            <div class="input-group">
+                @*<div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-"></i></span>
+                    </div>*@
+                @Html.EditorFor(m=> m.Email)
+                @*<input type="text" value="" class="form-control   m-3" id="nome" name="Nome" placeholder=""
+                       required="">*@
+            </div>
+            <button class="subscribe btn btn-primary btn-block " type="submit"> Enviar </button>
+        </div>
+
+
+
+    @*</form>*@
+
+</div>
+
+}
