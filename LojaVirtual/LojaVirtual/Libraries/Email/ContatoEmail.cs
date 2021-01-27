@@ -22,7 +22,7 @@ namespace LojaVirtual.Libraries.Email
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);//SMTP-> Servidor que vai enviar a menssagem
 
             smtp.UseDefaultCredentials = false; //desabilita as credenciais padrão do sistema pos iremos utilizar o nosso próprio;
-            smtp.Credentials = new NetworkCredential("brenofranciscomoais@gmail.com", ""); //credencial de rede são dois parametros Usuário e Senha
+            smtp.Credentials = new NetworkCredential("breno.morais@senaimt.edu.br", ""); //credencial de rede são dois parametros Usuário e Senha
 
             //habilitando conexão segura de criptografia
             smtp.EnableSsl = true;
@@ -31,7 +31,7 @@ namespace LojaVirtual.Libraries.Email
             MailMessage messagem = new MailMessage();
 
             //responsável por envia a menssagem
-            messagem.From = new MailAddress("brenofranciscomoais@gmail.com");
+            messagem.From = new MailAddress("brenofranciscomorais@gmail.com");
 
             //para quem vai a menssagem, para quem vai a menssagem podemos colocar mais de um email por ser uma coleção
             messagem.To.Add("brenofrancisco63@gmail.com");
