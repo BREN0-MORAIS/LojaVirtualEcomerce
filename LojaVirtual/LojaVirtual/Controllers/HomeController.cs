@@ -58,8 +58,6 @@ namespace LojaVirtual.Controllers
             Contato contato = new Contato();
             try
             {
-
-
                 contato.Nome = HttpContext.Request.Form["nome"];
                 contato.Texto = HttpContext.Request.Form["texto"];
                 contato.Email = HttpContext.Request.Form["email"];
@@ -125,6 +123,14 @@ namespace LojaVirtual.Controllers
         [HttpPost]
         public IActionResult CadastroCliente([FromForm]Cliente cliente)
         {
+            if (ModelState.IsValid)
+            {
+            
+                _banco.Add(cliente);
+                _banco.SaveChanges();
+                TempData["MSG_S"] = "Usuário cadastrado com Sucesso";
+                //TODO- implementar Redirecionamento diferentes
+            }
             return View();
         }
         public IActionResult CarrinhoCompras()
