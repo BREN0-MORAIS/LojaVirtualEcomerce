@@ -9,22 +9,31 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LojaVirtual.Data;
+using LojaVirtual.Repositories;
+using LojaVirtual.Repositories.IRepository;
+using Microsoft.AspNetCore.Http;
+using LojaVirtual.Libraries.Login;
 
 namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
-        private AppDataContext _banco;
-        public HomeController(AppDataContext banco)
+        private readonly IClienteRepository _repoCliente;
+        private readonly INewsLatterRepository _repoNewsLatter;
+        private LoginCliente _LoginCliente;//injetando login Cliente
+        public HomeController(IClienteRepository repo, INewsLatterRepository reposNewsLatter, LoginCliente loginCliente)
         {
-            _banco = banco;
+            _repoCliente = repo;
+            _repoNewsLatter = reposNewsLatter;
+            _LoginCliente = loginCliente;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var a = new NewsLetterEmail() { Email = "Breno Fra ncisco Morais" };
-            return View(a);
+        
+            //HttpContext.Session.
+            return View();
         }
         [HttpPost]
         //[FromForm] NewsLetterEmail -> Obetm dados do Formulário que foi passado via Post
@@ -36,8 +45,8 @@ namespace LojaVirtual.Controllers
             if (ModelState.IsValid)
             {
                 TempData["MSG_S"] = "E-mail Cadastrado! Agora você ira receber Promoções especiais no seu email, fique atento as Novidades";
-                _banco.NewsLetterEmails.Add(newsLatter);
-                _banco.SaveChanges();
+                _repoNewsLatter.Cadastrar(newsLatter);
+               
                 //TODO- Adição no Banco de Dados
                 return RedirectToAction(nameof(Index));
             }
@@ -110,26 +119,69 @@ namespace LojaVirtual.Controllers
 
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Login([FromForm]Cliente cliente)
+        {
+            Cliente ClienteDB = _repoCliente.Login(cliente.Email, cliente.Senha);
 
+            if (ClienteDB != null)
+            {
+                //salvando na sessão
+                _LoginCliente.Login(ClienteDB);
+                ////Logado-> Set ("Chave",new byte[]{ID})
+                //HttpContext.Session.Set("ID", new byte[] { 52});
+                //HttpContext.Session.SetString("Email",cliente.Email);
+                //HttpContext.Session.SetInt32("idade",20);
+
+                return new RedirectResult(nameof(Painel));
+            }
+            else
+            {
+                return new ContentResult() { Content = "Not logado" };
+                //Não pode esta Logado
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Painel()
+        {
+            Cliente cliente = _LoginCliente.GetCliente();
+            if (cliente!=null)//Quando Utiliza somente o Método Set
+            {
+
+            return new ContentResult() { Content = "Acesso Concedido:" + cliente.Id+" "+ cliente.Email+" " + cliente.CPF };
+            }
+            else
+            {
+               return new ContentResult() { Content = "Não concedido"};
+            }
+        }
         [HttpGet]
         public IActionResult CadastroCliente()
         {
+
             return View();
         }
         [HttpPost]
         public IActionResult CadastroCliente([FromForm]Cliente cliente)
         {
+
             if (ModelState.IsValid)
             {
-            
-                _banco.Add(cliente);
-                _banco.SaveChanges();
+                /*Salvar- EF core, SQL connection */
+                _repoCliente.Cadastrar(cliente);
+               
                 TempData["MSG_S"] = "Usuário cadastrado com Sucesso";
                 //TODO- implementar Redirecionamento diferentes
+            }
+            else
+            {
+                TempData["MSG_E"] = "Erro ao Cadastrar Usuário favor contactar o Administrador";
             }
             return View();
         }

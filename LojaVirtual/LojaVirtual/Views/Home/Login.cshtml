@@ -1,4 +1,6 @@
-﻿<main role="main">
+﻿@model LojaVirtual.Cliente
+
+<main role="main">
     <br />
     <br />
     <section class="container">
@@ -7,28 +9,27 @@
              Login
                 <a asp-action="CadastroCliente" asp-controller="Home" data-html="code_login_1" class="showcode">Registrar-se</a>                      
                 <h4 class="card-title mb-4 mt-1">Sign in</h4>
-                        <form>
+                <article>
+                        <form method="post">
                             <div class="form-group">
-                                <label>Your email</label>
-                                <input name="" class="form-control" placeholder="Email" type="email">
-                            </div> <!-- form-group// -->
+                                <label asp-for="Email">E-mail</label>
+                                <input asp-for="Email" class="form-control" placeholder="Entre com seu Email" type="email">
+                            </div>
                             <div class="form-group">
-                                <a class="float-right" href="#">Forgot?</a>
-                                <label>Your password</label>
-                                <input class="form-control" placeholder="******" type="password">
-                            </div> <!-- form-group// -->
+                                <a class="float-right" href="#">Esqeceu a senha?</a>
+                                <label asp-for="Senha">Senha</label>
+                                <input asp-for="Senha" class="form-control" placeholder="******" type="password">
+                            </div> 
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label> <input type="checkbox"> Salvar Senha </label>
-                                </div> <!-- checkbox .// -->
-                            </div> <!-- form-group// -->
+                                </div> 
+                            </div> 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-block"> Login </button>
-                            </div> <!-- form-group// -->
+                            </div> 
                         </form>
                     </article>
-                </div> <!-- card.// -->
-            </div> <!-- code-wrap.// -->
         </aside>
     </section>
 

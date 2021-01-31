@@ -1,0 +1,14 @@
+/***********************************************Sessão ***********************************************/
+												  Teoria
+										===========================
+#sessão
+sessão é uma forma de armazenar dados do lado do servidor quando se fala do lado do cliente armazena cokies.
+
+#Onde é armazenado a sessão?
+a sessão é armazenado na memória ram do computador ou seja ela é volatil, imagina se der uma queda na energia
+todos os usuários que estavam acessando o sistema serão perdidos, os usuários irão ter que fazer o login novamente.
+
+#Qual a solução em Escalabilidade Horisontal?
+Uma  das possiveis soluções é centralizr os dados da sessão  em um unico servidor ou seja recomendado armazenar no serviodor 
+de banco de dados significa que todos os servidores irão centralizar as sessões em um unico computador.
+

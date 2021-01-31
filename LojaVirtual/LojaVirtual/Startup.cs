@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaVirtual.Data;
+using LojaVirtual.Libraries.Session;
+using LojaVirtual.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,11 +24,22 @@ namespace LojaVirtual
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
+       
+            services.AddScoped<Session>();
+            /*Padrão Reository Implementado*/
+            DI.Injecao(services);
             services.AddControllersWithViews();
 
+            /*Session - Configuração*/
+            services.AddMemoryCache(); //Guardar os dados Na Memória
+
+            services.AddSession(options=>
+            {
+             
+            }); //por padrão a sessão fica uns 20 minutos se não for modificada o seu TimeOut
             services.AddDbContext<AppDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
 
@@ -45,7 +58,7 @@ namespace LojaVirtual
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

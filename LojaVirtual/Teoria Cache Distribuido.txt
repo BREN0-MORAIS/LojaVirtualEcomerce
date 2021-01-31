@@ -1,0 +1,22 @@
+/***********************************************Cache Distribuido ***********************************************/
+												  Teoria
+										===========================
+Escalabilidade -> É o Termo Utilizado para aumentar o poder de processamento de um computadr ou um sistema;
+Exemplo : ter Um sistema utilizado por mil usuário, o computador esta dando conta? sim intão blz,
+mas ai sobe pra dois mil usuários o comuputador da conta? não, intão precisamos escalar ou seja aumentar o poder de 
+processamento do computador.
+
+										Tipos de Escalabilidade
+										========================
+#Vertical
+É Melhorar os componentes do Servidor Memória, Processador etc.. 
+
+#Horizontal
+é colocar dois servidores ou seja dois computadores para trabalharem em conjunto e distribuir recursos conforme utilizado
+
+#o que é esse tal de Add Distribuide memóry cache?
+Esse método faz o ditribuimento de memória entre os servidores, mas o Método é recomendado na ocumentação que utilize apenas 
+no computador local ou de teste.
+
+#Mas intão qual utilizo em Proução?
+para colocar em produção Utiliza-se o add Distribuide Sql Server ou de outro Banco de Dados .

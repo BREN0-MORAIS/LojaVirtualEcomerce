@@ -1,0 +1,182 @@
+/***********************************************01-Statup-Configurando ***********************************************/
+
+/*Configure Services*/
+
+public void ConfigureServices(IServiceCollection services)
+    {
+        /*Padrão Reository Implementado*/
+        DI.Injecao(services);
+        services.AddControllersWithViews();
+
+        /*Session - Configuração*/
+        services.AddMemoryCache(); //Guardar os dados Na Memória
+
+        services.AddSession(options=>
+        {
+             
+        }); //por padrão a sessão fica uns 20 minutos se não for modificada o seu TimeOut
+        services.AddDbContext<AppDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+    }
+
+/*Configuração- Usando a Sessão*/
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.UseSession();
+        
+    }
+
+    
+/***********************************************02-Ustilizando a Sesão ***********************************************/
+[HttpGet]
+public IActionResult Index()
+{
+        
+    HttpContext.Session. -> vai ter os Métodos que ira utilizar alguns como setar algum dado verificar Id limpra sessão e etc
+    return View();
+}
+
+
+/***********************************************03-Ustilizando sessão com Usuário ***********************************************/
+Teoria pratica-> Guardar informações do usuário para ele poder acessar as paginas que lhe são permitidas ou seja se não estiver sessão
+para as outras paginas o usuário não estara logado podendo "bloquear" em paginas que não permitidas.
+
+      [HttpPost]
+        public IActionResult Login([FromForm]Cliente cliente)
+        {
+            if(cliente.Email == "breno@breno" && cliente.Senha == "1234")
+            {
+                //Logado-> Set ("Chave",new byte[]{ID})
+                HttpContext.Session.Set("ID", new byte[] { 52});
+                HttpContext.Session.SetString("Email",cliente.Email);
+                HttpContext.Session.SetInt32("idade",20);
+
+                return new ContentResult() { Content = "Logado" };
+            }
+            else
+            {
+                return new ContentResult() { Content = "Not logado" };
+                //Não pode esta Logado
+            }
+
+        }
+
+        [HttpGet]
+        public IActionResult Painel()
+        {
+            byte[] UsuarioID;
+            if (HttpContext.Session.TryGetValue("ID",out UsuarioID))//Quando Utiliza somente o Método Set
+            {
+
+            return new ContentResult() { Content = "Acesso Concedido:" + UsuarioID[0] };
+            }
+            else
+            {
+               return new ContentResult() { Content = "Não concedido"};
+            }
+        }
+
+
+/***********************************************04-Trabalhado com Classes***********************************************/
+            public class Session
+    {
+
+        /*CRUD -> Cadastrar/Atualizar/Consultar/Remover - RemoverTodos/Exist
+         *
+         *
+         */
+        IHttpContextAccessor _context;
+        public Session(IHttpContextAccessor context)
+        {
+            _context = context;
+        }
+        public  void Cadastrar(string key, string valor)
+        {
+            _context.HttpContext.Session.SetString(key, valor);
+        }
+
+        public void Atualizar(string key,string valor)
+        {
+            if (Exist(key))
+            {
+
+            _context.HttpContext.Session.Remove(key);
+            }
+            _context.HttpContext.Session.SetString(key, valor);
+
+        }
+
+        public void Remover(string key)
+        {
+            _context.HttpContext.Session.Remove(key);
+        }
+
+
+        public string Get(string key)
+        {
+            return _context.HttpContext.Session.GetString(key);
+        }
+
+        public bool Exist(string key)
+        {
+            return _context.HttpContext.Session.GetString(key) == null?false:true;
+        }
+
+        public void RemoverTodos(string key)
+        {
+            _context.HttpContext.Session.Clear();
+        }
+    }
+}
+/***********************************************05-Stratup-Configurando ***********************************************/
+       //injeção de Dependencias da Sessão vai classe
+            services.AddHttpContextAccessor();
+            //deichando disponivel pra todas as Classes
+
+
+
+/***********************************************07-Instalar   ***********************************************/
+Newton soft -> Nuget
+/***********************************************06-Criar Classe LoginCliente ***********************************************/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+namespace LojaVirtual.Libraries.Login
+{
+    public class LoginCliente
+    {
+        //Fazer Uma consulta no Banco de dados com email e senha
+        //depois armazenar a informação na sessão do cliente
+        private string key = "Login.Cliente";
+        private Session.Session _session;
+        public LoginCliente(Session.Session session)
+        {
+            _session = session;
+        }
+        public void Login(Cliente cliente)
+        {
+            //serializar-> Converteno para String
+          var obj =  JsonConvert.SerializeObject(cliente);
+            _session.Cadastrar(key, obj);
+            //Armazenar na Sessão
+        }
+
+        public Cliente GetCliente()
+        {
+            //deserealizar->, pega um item que esta em formato de string e converte para Objeto
+            string clienteJsonString = _session.Get(key);
+
+          return  JsonConvert.DeserializeObject<Cliente>(clienteJsonString);
+             
+
+        }
+
+        public void Logout()
+        {
+            _session.RemoverTodos();
+        }
+    }
+}

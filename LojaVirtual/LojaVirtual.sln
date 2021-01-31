@@ -12,6 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurar Email", "Configu
 		Configuração.txt = Configuração.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sessão,Cache,Cookie", "Sessão,Cache,Cookie", "{7AD9DC95-CF49-4CFB-96B8-89F5ADAC49E7}"
+	ProjectSection(SolutionItems) = preProject
+		Sessão Configuração.txt = Sessão Configuração.txt
+		Sessão Teoria .txt = Sessão Teoria .txt
+		Teoria Cache Distribuido.txt = Teoria Cache Distribuido.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +35,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5E0B66A4-CE70-4836-9FF2-63D552D291EF} = {F131C0FC-F180-46EA-8651-F9AA172E4B3B}
+		{7AD9DC95-CF49-4CFB-96B8-89F5ADAC49E7} = {F131C0FC-F180-46EA-8651-F9AA172E4B3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7E1AFE4-7790-43DF-AECE-26DA4A012174}
