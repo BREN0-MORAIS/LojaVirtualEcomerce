@@ -13,6 +13,7 @@ using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.IRepository;
 using Microsoft.AspNetCore.Http;
 using LojaVirtual.Libraries.Login;
+using LojaVirtual.Libraries.Filtro;
 
 namespace LojaVirtual.Controllers
 {
@@ -148,18 +149,10 @@ namespace LojaVirtual.Controllers
         }
 
         [HttpGet]
+        [ClienteAutorizacao] //criado na classe Filtros para definir autorização
         public IActionResult Painel()
         {
-            Cliente cliente = _LoginCliente.GetCliente();
-            if (cliente!=null)//Quando Utiliza somente o Método Set
-            {
-
-            return new ContentResult() { Content = "Acesso Concedido:" + cliente.Id+" "+ cliente.Email+" " + cliente.CPF };
-            }
-            else
-            {
-               return new ContentResult() { Content = "Não concedido"};
-            }
+            return new ContentResult() { Content = "Este é o Painel" };
         }
         [HttpGet]
         public IActionResult CadastroCliente()
