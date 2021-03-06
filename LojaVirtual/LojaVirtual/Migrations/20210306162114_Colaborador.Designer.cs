@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaVirtual.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20210123173746_NewsLetterEmail")]
-    partial class NewsLetterEmail
+    [Migration("20210306162114_Colaborador")]
+    partial class Colaborador
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,30 @@ namespace LojaVirtual.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("LojaVirtual.Models.Colaborador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Nome")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Senha")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colaboradores");
+                });
+
             modelBuilder.Entity("LojaVirtual.Models.NewsLetterEmail", b =>
                 {
                     b.Property<int>("Id")
@@ -62,6 +86,7 @@ namespace LojaVirtual.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

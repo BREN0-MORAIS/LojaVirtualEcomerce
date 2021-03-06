@@ -1,0 +1,39 @@
+﻿@model LojaVirtual.Models.Colaborador
+@{
+    Layout = "_Layout";
+}
+
+<main role="main">
+    <br />
+    <br />
+    <section class="container">
+        <aside class="col-sm-4">
+            <h3 class="subtitle-doc">
+                Login do Colaborador
+           
+                <h4 class="card-title mb-4 mt-1">Sign in</h4>
+                <article>
+                    <form method="post">
+                        <div class="form-group">
+                            <label asp-for="Email">E-mail</label>
+                            <input asp-for="Email" class="form-control" placeholder="Entre com seu Email" type="email">
+                        </div>
+                        <div class="form-group">
+                            <a class="float-right" href="#">Esqeceu a senha?</a>
+                            <label asp-for="Senha">Senha</label>
+                            <input asp-for="Senha" class="form-control" placeholder="******" type="password">
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label> <input type="checkbox"> Salvar Senha </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                        </div>
+                    </form>
+                </article>
+        </aside>
+    </section>
+
+</main>

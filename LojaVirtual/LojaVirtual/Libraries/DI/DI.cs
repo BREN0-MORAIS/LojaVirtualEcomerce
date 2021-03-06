@@ -15,6 +15,8 @@ namespace LojaVirtual
         {
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsLatterRepository, NewsLatterRepository>();
+            services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
+            services.AddScoped<LoginColaborador>();
 
             //injeção de Dependencias da Sessão vai classe
             services.AddHttpContextAccessor();
