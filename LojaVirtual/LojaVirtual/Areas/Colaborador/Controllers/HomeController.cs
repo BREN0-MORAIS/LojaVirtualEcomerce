@@ -19,8 +19,6 @@ namespace LojaVirtual.Areas.Colaborador.Controllers
             _repoColaborador = colaborador;
             _loginColaborador = loginColaborador;
         }
-
-       
         public IActionResult Login()
         {
             return View();
